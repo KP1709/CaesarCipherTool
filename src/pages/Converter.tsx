@@ -138,7 +138,7 @@ function Converter() {
                 margin-bottom: 1em;`}>
                     <Label htmlFor='plain-text__input'> Plain text:</Label>
                     <TextArea
-                        onChange={(e) => setPlainTextInput(e.target.value)}
+                        onChange={(e) => setPlainTextInput(e.target.value.toLowerCase())}
                         id="plain-text__input"
                         name="plain-text__input"
                         value={plainTextInput}
