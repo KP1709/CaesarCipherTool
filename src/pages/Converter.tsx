@@ -84,19 +84,20 @@ type State = {
 };
 
 type Action =
-    | { type: 'increment_step'; payload: 1 }
-    | { type: 'decrement_step'; payload: 1 }
+    | { type: 'increment_step'; }
+    | { type: 'decrement_step'; }
 
-function adjustStepReducer(state: State, action: Action) {
+// @ts-ignore
+function adjustStepReducer(state: State, action: Action): State {
     if (action.type === "increment_step") {
         if (state.step === 25) return { step: state.step }
         else
-            return { step: state.step + action.payload }
+            return { step: state.step + 1 }
     }
     else if (action.type === "decrement_step") {
         if (state.step === 0) return { step: state.step }
         else
-            return { step: state.step - action.payload }
+            return { step: state.step - 1 }
     }
 }
 
@@ -105,6 +106,7 @@ const originalAlphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
 function Converter() {
     const [plainTextInput, setPlainTextInput] = useState('')
     const [plainTextErrorCheck, setPlainTextErrorCheck] = useState('')
+    // @ts-ignore
     const [state, dispatch] = useReducer(adjustStepReducer, { step: 0 });
     const [isDrawOpen, setIsDrawOpen] = useState(false)
     const { cipherString, setUserEntry, setUserStep, mappedAlphabet, userStep } = useEncodedCipher()
@@ -170,9 +172,9 @@ function Converter() {
                     <div css={css`display: flex; flex-direction: column; align-items: center; margin: 0; padding: 0;`}>
                         <Label>Alphabet step:</Label>
                         <div css={css`display: flex; align-items: center; justify-content: center;`}>
-                            <ButtonStep onClick={() => dispatch({ type: 'decrement_step', payload: 1 })}>-</ButtonStep>
+                            <ButtonStep onClick={() => dispatch({ type: 'decrement_step' })}>-</ButtonStep>
                             <p css={css`font-size: 1.2rem; padding: 10px;`}>{state!.step}</p>
-                            <ButtonStep onClick={() => dispatch({ type: 'increment_step', payload: 1 })}>+</ButtonStep>
+                            <ButtonStep onClick={() => dispatch({ type: 'increment_step' })}>+</ButtonStep>
                         </div>
                     </div>
                 </form>
