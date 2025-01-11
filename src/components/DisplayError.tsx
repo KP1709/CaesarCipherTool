@@ -12,7 +12,7 @@ function DisplayError({ userInput }: DisplayErrorProps) {
         if (/\d/.test(userInput)) {
             newErrors.push('Contains numerical characters')
         }
-        if (/[!@#$%^&*(),.?":{}|<>]/.test(userInput)) {
+        if (/['!@#$%^&*(),.?":{}|<>]/.test(userInput)) {
             newErrors.push('Contains special characters')
         }
         setErrors(newErrors)
