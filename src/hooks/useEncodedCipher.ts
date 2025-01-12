@@ -51,11 +51,15 @@ function encodedCipher(entry: string, step: number) {
         if (item.letter.letter) {
             item.index = alphabet.indexOf(item.letter.capital ? item.value.toLowerCase() : item.value);
             if (typeof item.index === 'number') {
-                encodedUserEntry.push(item.letter.mappedLetter = mappedAlphabet[item.index]);
-            } else {
+                encodedUserEntry.push(item.letter.capital ?
+                    item.letter.mappedLetter = mappedAlphabet[item.index].toUpperCase() :
+                    item.letter.mappedLetter = mappedAlphabet[item.index].toLowerCase())
+            }
+            else {
                 encodedUserEntry.push(item.value);
             }
-        } else {
+        }
+        else {
             encodedUserEntry.push(item.value);
         }
     });
