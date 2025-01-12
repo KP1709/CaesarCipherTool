@@ -48,22 +48,17 @@ function encodedCipher(entry: string, step: number) {
     })
 
     mappedString.forEach(item => {
-        if (item.letter.letter && item.letter.capital) {
-            item.index = alphabet.indexOf(item.value.toLowerCase())
+        if (item.letter.letter) {
+            item.index = alphabet.indexOf(item.letter.capital ? item.value.toLowerCase() : item.value);
+            if (typeof item.index === 'number') {
+                encodedUserEntry.push(item.letter.mappedLetter = mappedAlphabet[item.index]);
+            } else {
+                encodedUserEntry.push(item.value);
+            }
+        } else {
+            encodedUserEntry.push(item.value);
         }
-        else if (item.letter.letter && !item.letter.capital) {
-            item.index = alphabet.indexOf(item.value)
-        }
-    })
-
-    mappedString.map(item => {
-        if (item.letter.letter && typeof item.index === 'number') {
-            encodedUserEntry.push(item.letter.mappedLetter = mappedAlphabet[item.index])
-        }
-        else {
-            encodedUserEntry.push(item.value)
-        }
-    })
+    });
 
     return encodedUserEntry.join('')
 }
