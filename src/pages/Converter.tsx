@@ -41,6 +41,12 @@ const ButtonStyles = css`
     border-radius: 50px;
     font-family:'Courier New', Courier, monospace;
     border: 2px solid black;
+    font-weight: 600;
+    letter-spacing: 2px;
+
+    &:hover {
+    background-color: lightcoral;
+  }
 `;
 
 const Button = styled.button`
