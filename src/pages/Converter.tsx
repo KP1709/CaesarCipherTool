@@ -73,6 +73,7 @@ const DrawContainer = styled.div<DrawContainerProps>`
     width: 100%;
     background-color: rgb(228, 177, 177);
     transition: bottom 1.5s ease-out;
+    height: fit-content;
 `;
 
 const Label = styled.label`
