@@ -1,5 +1,17 @@
 import { useMemo, useState } from "react"
 
+type MappedStringType = {
+    value: string;
+    letter: {
+        letter: boolean;
+        capital: boolean;
+        mappedLetter?: string
+    }
+    specialChar: boolean | 'space';
+    number: boolean;
+    index: number | null;
+}
+
 const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
 function mapAlphabet(shift: number): string[] {
@@ -10,19 +22,47 @@ function mapAlphabet(shift: number): string[] {
 function encodedCipher(entry: string, step: number) {
     const mappedAlphabet = mapAlphabet(step)
     const userEntry = entry
-    let mappedStringIndex: number[] = []
+    let mappedString: MappedStringType[] = []
     let encodedUserEntry: string[] = []
-    let output: string[] = []
+    let userEntrySplit: string[] = []
 
-    output = userEntry.split("")
+    userEntrySplit = userEntry.split("")
 
-    output.map(letter => {
-        mappedStringIndex.push(alphabet.indexOf(letter))
+    userEntrySplit.forEach(value => {
+        if (value.match(/^[A-Z]*$/)) {
+            mappedString.push({ value: value, letter: { letter: true, capital: true }, specialChar: false, number: false, index: null })
+        }
+        else if (value.match(/^[a-z]*$/)) {
+            mappedString.push({ value: value, letter: { letter: true, capital: false }, specialChar: false, number: false, index: null })
+        }
+        else if (value.match(/^[0-9]*$/)) {
+            mappedString.push({ value: value, letter: { letter: false, capital: false }, specialChar: false, number: true, index: null })
+        }
+        else if (value.match(/^['-+=_`¬\/!@#$%^&*(),.?":{}|<>]*$/)) {
+            mappedString.push({ value: value, letter: { letter: false, capital: false }, specialChar: true, number: false, index: null })
+        }
+        // Accepting a space + line break
+        else if (value.match(/^[ \n]*$/)) {
+            mappedString.push({ value: value, letter: { letter: false, capital: false }, specialChar: 'space', number: false, index: null })
+        }
     })
 
-    mappedStringIndex.forEach(value => {
-        if (value === -1) encodedUserEntry.push(" ")
-        else encodedUserEntry.push(mappedAlphabet[value])
+    mappedString.forEach(item => {
+        if (item.letter.letter && item.letter.capital) {
+            item.index = alphabet.indexOf(item.value.toLowerCase())
+        }
+        else if (item.letter.letter && !item.letter.capital) {
+            item.index = alphabet.indexOf(item.value)
+        }
+    })
+
+    mappedString.map(item => {
+        if (item.letter.letter && typeof item.index === 'number') {
+            encodedUserEntry.push(item.letter.mappedLetter = mappedAlphabet[item.index])
+        }
+        else {
+            encodedUserEntry.push(item.value)
+        }
     })
 
     return encodedUserEntry.join('')
