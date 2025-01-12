@@ -4,14 +4,9 @@ import { useEncodedCipher } from "../hooks/useEncodedCipher";
 import AlphabetShiftDisplay from "../components/alphabetShift"
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import DisplayError from "../components/DisplayError";
 
 interface DrawContainerProps {
     isDrawOpen: boolean;
-}
-
-interface TextAreaProps {
-    isError: boolean;
 }
 
 const Container = styled.div`
@@ -31,11 +26,11 @@ const Item = styled.div`
     justify-content: center;
 `;
 
-const TextArea = styled.textarea<TextAreaProps>`
+const TextArea = styled.textarea`
     width: 100%;
     height: 100px;
     border-radius: 10px;
-    border: ${(props) => (props.isError ? '4px solid red' : '2px solid black')};
+    border: 2px solid black;
     margin-bottom: 10px;
     padding: 10px;
 `;
@@ -105,18 +100,14 @@ const originalAlphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
 function Converter() {
     const [plainTextInput, setPlainTextInput] = useState('')
-    const [plainTextErrorCheck, setPlainTextErrorCheck] = useState('')
     // @ts-ignore
     const [state, dispatch] = useReducer(adjustStepReducer, { step: 0 });
     const [isDrawOpen, setIsDrawOpen] = useState(false)
     const { cipherString, setUserEntry, setUserStep, mappedAlphabet, userStep } = useEncodedCipher()
-    const [isConversionError, setIsConversionError] = useState(false)
 
     const handleSubmit = (e: { preventDefault: () => void }): void => {
         e.preventDefault()
-        setUserEntry(plainTextInput.match(/^[a-zA-Z\n ]*$/) ? plainTextInput : '')
-        setIsConversionError(plainTextInput.match(/^[a-zA-Z\n ]*$/) ? false : true)
-        setPlainTextErrorCheck(plainTextInput)
+        setUserEntry(plainTextInput)
     }
 
     const handleShiftSubmit = (e: { preventDefault: () => void }): void => {
@@ -142,10 +133,8 @@ function Converter() {
                         id="plain-text__input"
                         name="plain-text__input"
                         value={plainTextInput}
-                        isError={isConversionError}
                     />
 
-                    {isConversionError && <DisplayError userInput={plainTextErrorCheck} />}
 
                     <Label htmlFor="encrypted-text__display">Ciphered text:</Label>
                     <TextArea
@@ -153,7 +142,6 @@ function Converter() {
                         value={cipherString}
                         id="encrypted-text__display"
                         name="encrypted-text__display"
-                        isError={isConversionError}
                         onChange={() => { }}
                         contentEditable={false}
                     />
