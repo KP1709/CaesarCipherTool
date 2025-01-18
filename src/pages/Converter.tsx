@@ -85,21 +85,29 @@ type State = {
     step: number;
 };
 
-type Action =
-    | { type: 'increment_step'; }
-    | { type: 'decrement_step'; }
+const initialStepState: State = {
+    step: 0
+}
 
-// @ts-ignore
+type Action =
+    | { type: 'increment_step', payload: 1; }
+    | { type: 'decrement_step', payload: 1; }
+
 function adjustStepReducer(state: State, action: Action): State {
-    if (action.type === "increment_step") {
-        if (state.step === 25) return { step: state.step }
+    const { type, payload } = action;
+
+    if (type === "increment_step") {
+        if (state.step === 25) return { ...state, step: state.step }
         else
-            return { step: state.step + 1 }
+            return { step: state.step + payload }
     }
-    else if (action.type === "decrement_step") {
-        if (state.step === 0) return { step: state.step }
+    else if (type === "decrement_step") {
+        if (state.step === 0) return { ...state, step: state.step }
         else
-            return { step: state.step - 1 }
+            return { step: state.step - payload }
+    }
+    else {
+        return state;
     }
 }
 
@@ -107,8 +115,7 @@ const originalAlphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
 function Converter() {
     const [plainTextInput, setPlainTextInput] = useState('')
-    // @ts-ignore
-    const [state, dispatch] = useReducer(adjustStepReducer, { step: 0 });
+    const [state, dispatch] = useReducer(adjustStepReducer, initialStepState);
     const [isDrawOpen, setIsDrawOpen] = useState(false)
     const { cipherString, setUserEntry, setUserStep, mappedAlphabet, userStep } = useEncodedCipher()
 
@@ -167,9 +174,9 @@ function Converter() {
                     <div css={css`display: flex; flex-direction: column; align-items: center; margin: 0; padding: 0;`}>
                         <Label>Alphabet step:</Label>
                         <div css={css`display: flex; align-items: center; justify-content: center;`}>
-                            <ButtonStep onClick={() => dispatch({ type: 'decrement_step' })}>-</ButtonStep>
-                            <p css={css`font-size: 1.2rem; padding: 10px;`}>{state!.step}</p>
-                            <ButtonStep onClick={() => dispatch({ type: 'increment_step' })}>+</ButtonStep>
+                            <ButtonStep onClick={() => dispatch({ type: 'decrement_step', payload: 1 })}>-</ButtonStep>
+                            <p css={css`font-size: 1.2rem; padding: 10px;`}>{state.step}</p>
+                            <ButtonStep onClick={() => dispatch({ type: 'increment_step', payload: 1 })}>+</ButtonStep>
                         </div>
                     </div>
                 </form>
