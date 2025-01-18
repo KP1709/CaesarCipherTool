@@ -33,6 +33,7 @@ const TextArea = styled.textarea`
     border: 2px solid black;
     margin-bottom: 10px;
     padding: 10px;
+    resize: vertical;
 `;
 
 const ButtonStyles = css`
