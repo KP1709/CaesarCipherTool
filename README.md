@@ -23,3 +23,4 @@ TBD
 - Coolors contrast checker - https://coolors.co/contrast-checker/000000-f08080
 - Creating custom hooks (React docs) - https://react.dev/learn/reusing-logic-with-custom-hooks
 - How to create React hooks -https://www.freecodecamp.org/news/how-to-create-react-hooks/
+- useReducer in TS (Alex Bespoyasov) - https://www.newline.co/@bespoyasov/how-to-use-usereducer-with-typescript--3918a332
