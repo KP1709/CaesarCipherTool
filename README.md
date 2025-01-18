@@ -5,7 +5,7 @@
 React / Typescript / CSS / Emotion styling / Styled components / pnpm
 
 ## 🍼 Introduction
-TBD
+Continuing to develop my Typescript and React skills, the Caesar Cipher tool explores using useReducer with type safety. This also includes creating a custom hook to encode the user input. The project also gave the opportunity to practice CSS-in-JS with libraries which I use professionally. I also learnt more about accessibility, for example applying the required ARIA tags to text areas and to custom controls.
 
 ## 🛠️ Features
 - Convert plain text into encrypted text
