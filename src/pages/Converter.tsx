@@ -171,6 +171,7 @@ function Converter() {
                         contentEditable={false}
                         aria-multiline={true}
                         aria-readonly={true}
+                        spellCheck={false}
                     />
                     <ButtonInput type="submit" value="Encrypt" />
                 </form>
