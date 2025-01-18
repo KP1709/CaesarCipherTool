@@ -76,10 +76,19 @@ const DrawContainer = styled.div<DrawContainerProps>`
     height: fit-content;
 `;
 
-const Label = styled.label`
+const mainLabelStyling = css`
     font-size:clamp(1rem, 5vw, 1.25rem);
     font-weight: 600;
 `;
+
+const Label = styled.label`
+    ${mainLabelStyling}
+`;
+
+const Heading = styled.h3`
+    ${mainLabelStyling}
+`;
+
 
 type State = {
     step: number;
@@ -147,6 +156,7 @@ function Converter() {
                         id="plain-text__input"
                         name="plain-text__input"
                         value={plainTextInput}
+                        aria-multiline={true}
                     />
 
 
@@ -158,6 +168,8 @@ function Converter() {
                         name="encrypted-text__display"
                         onChange={() => { }}
                         contentEditable={false}
+                        aria-multiline={true}
+                        aria-readonly={true}
                     />
                     <ButtonInput type="submit" value="Encrypt" />
                 </form>
@@ -172,11 +184,25 @@ function Converter() {
             <DrawContainer isDrawOpen={isDrawOpen}>
                 <form onSubmit={handleShiftSubmit} css={css`margin-bottom: 1em;`}>
                     <div css={css`display: flex; flex-direction: column; align-items: center; margin: 0; padding: 0;`}>
-                        <Label>Alphabet step:</Label>
+                        <Heading>Alphabet step:</Heading>
                         <div css={css`display: flex; align-items: center; justify-content: center;`}>
-                            <ButtonStep onClick={() => dispatch({ type: 'decrement_step', payload: 1 })}>-</ButtonStep>
-                            <p css={css`font-size: 1.2rem; padding: 10px;`}>{state.step}</p>
-                            <ButtonStep onClick={() => dispatch({ type: 'increment_step', payload: 1 })}>+</ButtonStep>
+                            <ButtonStep
+                                aria-label="decrement count"
+                                aria-live="assertive"
+                                onClick={() => dispatch({ type: 'decrement_step', payload: 1 })}
+                            >
+                                -
+                            </ButtonStep>
+                            <p id="step-value" aria-live="polite" role="status" css={css`font-size: 1.2rem; padding: 10px;`}>
+                                <span>{state.step}</span>
+                            </p>
+                            <ButtonStep
+                                aria-label="increment count"
+                                aria-live="assertive"
+                                onClick={() => dispatch({ type: 'increment_step', payload: 1 })}
+                            >
+                                +
+                            </ButtonStep>
                         </div>
                     </div>
                 </form>
