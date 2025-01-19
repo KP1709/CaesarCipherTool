@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import { useReducer, useState } from "react";
+import { useState } from "react";
 import { useEncodedCipher } from "../hooks/useEncodedCipher";
 import AlphabetShiftDisplay from "../components/alphabetShift"
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import useAlphabetStep from "../hooks/useAlphabetStep";
 
 interface DrawContainerProps {
     isDrawOpen: boolean;
@@ -90,43 +91,12 @@ const Heading = styled.h3`
     ${mainLabelStyling}
 `;
 
-
-type State = {
-    step: number;
-};
-
-const initialStepState: State = {
-    step: 0
-}
-
-type Action =
-    | { type: 'increment_step', payload: 1; }
-    | { type: 'decrement_step', payload: 1; }
-
-function adjustStepReducer(state: State, action: Action): State {
-    const { type, payload } = action;
-
-    if (type === "increment_step") {
-        if (state.step === 25) return { ...state, step: state.step }
-        else
-            return { step: state.step + payload }
-    }
-    else if (type === "decrement_step") {
-        if (state.step === 0) return { ...state, step: state.step }
-        else
-            return { step: state.step - payload }
-    }
-    else {
-        return state;
-    }
-}
-
 const originalAlphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
 function Converter() {
     const [plainTextInput, setPlainTextInput] = useState('')
-    const [state, dispatch] = useReducer(adjustStepReducer, initialStepState);
     const [isDrawOpen, setIsDrawOpen] = useState(false)
+    const {step, increment_step, decrement_step} = useAlphabetStep()
     const { cipherString, setUserEntry, setUserStep, mappedAlphabet, userStep } = useEncodedCipher()
 
     const handleSubmit = (e: { preventDefault: () => void }): void => {
@@ -136,7 +106,7 @@ function Converter() {
 
     const handleShiftSubmit = (e: { preventDefault: () => void }): void => {
         e.preventDefault()
-        setUserStep(state!.step)
+        setUserStep(step)
     }
 
     const toggleDraw = () => setIsDrawOpen(!isDrawOpen)
@@ -159,7 +129,6 @@ function Converter() {
                         value={plainTextInput}
                         aria-multiline={true}
                     />
-
 
                     <Label htmlFor="encrypted-text__display">Ciphered text:</Label>
                     <TextArea
@@ -189,19 +158,19 @@ function Converter() {
                         <Heading>Alphabet step:</Heading>
                         <div css={css`display: flex; align-items: center; justify-content: center;`}>
                             <ButtonStep
-                                aria-label="decrement count"
+                                aria-label="decrement_step count"
                                 aria-live="assertive"
-                                onClick={() => dispatch({ type: 'decrement_step', payload: 1 })}
+                                onClick={decrement_step}
                             >
                                 -
                             </ButtonStep>
                             <p id="step-value" aria-live="polite" role="status" css={css`font-size: 1.2rem; padding: 10px;`}>
-                                <span>{state.step}</span>
+                                <span>{step}</span>
                             </p>
                             <ButtonStep
-                                aria-label="increment count"
+                                aria-label="increment_step count"
                                 aria-live="assertive"
-                                onClick={() => dispatch({ type: 'increment_step', payload: 1 })}
+                                onClick={increment_step}
                             >
                                 +
                             </ButtonStep>
