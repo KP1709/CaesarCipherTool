@@ -47,7 +47,11 @@ const ButtonStyles = css`
     letter-spacing: 2px;
 
     &:hover {
-    background-color: lightcoral;
+    background-color: rgb(240,128,128);
+  }
+
+    &:focus {
+    outline: 4px solid rgb(233,150,122);
   }
 `;
 
@@ -97,7 +101,7 @@ const originalAlphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
 function Converter() {
     const [plainTextInput, setPlainTextInput] = useState('')
     const [isDrawOpen, setIsDrawOpen] = useState(false)
-    const {step, increment_step, decrement_step} = useAlphabetStep()
+    const { step, increment_step, decrement_step } = useAlphabetStep()
     const { cipherString, setUserEntry, setUserStep, mappedAlphabet, userStep } = useEncodedCipher()
 
     const handleSubmit = (e: { preventDefault: () => void }): void => {
