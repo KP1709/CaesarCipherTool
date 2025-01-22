@@ -81,7 +81,7 @@ const DrawContainer = styled.div<DrawContainerProps>`
 
 const mainLabelStyling = css`
     font-size:clamp(1rem, 5vw, 1.25rem);
-    font-weight: 600;
+    font-weight: bold;
 `;
 
 const Label = styled.label`
