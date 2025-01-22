@@ -163,7 +163,7 @@ function Converter() {
                         <Heading>Alphabet step:</Heading>
                         <div css={css`display: flex; align-items: center; justify-content: center;`}>
                             <ButtonStep
-                                aria-label="decrement_step count"
+                                aria-label="decrement step count"
                                 aria-live="assertive"
                                 onClick={decrement_step}
                             >
@@ -173,7 +173,7 @@ function Converter() {
                                 <span>{step}</span>
                             </p>
                             <ButtonStep
-                                aria-label="increment count"
+                                aria-label="increment step count"
                                 aria-live="assertive"
                                 onClick={increment_step}
                             >
