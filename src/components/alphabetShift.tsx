@@ -24,7 +24,7 @@ function AlphabetShiftDisplay({ step, mappedAlphabet, originalAlphabet }: Alphab
         <div>
             <GridUnorderedList>
                 {originalAlphabet.map((letter, index) =>
-                    <li key={letter}>{letter} &#8658; {step === 0 ? originalAlphabet[index] : mappedAlphabet[index]}</li>
+                    <li key={letter} aria-label={`${letter} is converted to ${mappedAlphabet[index]}`}>{letter} &#8658; {step === 0 ? originalAlphabet[index] : mappedAlphabet[index]}</li>
                 )}
             </GridUnorderedList>
         </div>
