@@ -70,11 +70,12 @@ const ButtonStep = styled.button`
 const DrawContainer = styled.div<DrawContainerProps>`
     position: absolute;
     bottom: ${(props) => props.isDrawOpen ? '0' : '-900px'};
+    visibility: ${(props) => props.isDrawOpen ? 'visible' : 'hidden'};
     left: 0;
     padding: 10px;
     width: 100%;
     background-color: rgb(228, 177, 177);
-    transition: bottom 1.5s ease-out;
+    transition: bottom 1.5s ease-out, visibility 1.5s ease-out;
     height: fit-content;
 `;
 
@@ -168,7 +169,7 @@ function Converter() {
                                 <span>{step}</span>
                             </p>
                             <ButtonStep
-                                aria-label="increment_step count"
+                                aria-label="increment count"
                                 aria-live="assertive"
                                 onClick={increment_step}
                             >
