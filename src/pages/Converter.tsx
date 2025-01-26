@@ -133,6 +133,7 @@ function Converter() {
                         name="plain-text__input"
                         value={plainTextInput}
                         aria-multiline={true}
+                        data-test="plain-text__input"
                     />
 
                     <Label htmlFor="encrypted-text__display">Ciphered text:</Label>
@@ -146,18 +147,20 @@ function Converter() {
                         aria-multiline={true}
                         aria-readonly={true}
                         spellCheck={false}
+                        data-test="encrypted-text__display"
+
                     />
-                    <ButtonInput type="submit" value="Encrypt" />
+                    <ButtonInput type="submit" value="Encrypt" data-test="encrypt-btn"/>
                 </form>
             </Item>
 
             <Item>
-                <Button onClick={toggleDraw}>
+                <Button onClick={toggleDraw} data-test='alphabet-shift__btn'>
                     View alphabet mapping
                 </Button>
             </Item>
 
-            <DrawContainer isDrawOpen={isDrawOpen}>
+            <DrawContainer isDrawOpen={isDrawOpen} data-test="alphabet-shift__container">
                 <form onSubmit={handleShiftSubmit} css={css`margin-bottom: 1em;`}>
                     <div css={css`display: flex; flex-direction: column; align-items: center; margin: 0; padding: 0;`}>
                         <Heading>Alphabet step:</Heading>
@@ -166,16 +169,19 @@ function Converter() {
                                 aria-label="decrement step count"
                                 aria-live="assertive"
                                 onClick={decrement_step}
+                                data-test="decrement-step__btn"
+
                             >
                                 -
                             </ButtonStep>
                             <p id="step-value" aria-live="polite" role="status" css={css`font-size: 1.2rem; padding: 10px;`}>
-                                <span>{step}</span>
+                                <span data-test="step-value">{step}</span>
                             </p>
                             <ButtonStep
                                 aria-label="increment step count"
                                 aria-live="assertive"
                                 onClick={increment_step}
+                                data-test="increment-step__btn"
                             >
                                 +
                             </ButtonStep>
@@ -185,7 +191,7 @@ function Converter() {
 
                 <AlphabetShiftDisplay originalAlphabet={originalAlphabet} mappedAlphabet={mappedAlphabet} step={userStep} />
 
-                <Button onClick={toggleDraw}>
+                <Button onClick={toggleDraw} data-test="close-alphabet-shift__btn">
                     Close
                 </Button>
             </DrawContainer>
