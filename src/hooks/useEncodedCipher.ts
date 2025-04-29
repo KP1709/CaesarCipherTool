@@ -34,7 +34,7 @@ function encodedCipher(entry: string, step: number) {
 
     userEntrySplit.forEach(value => {
         if (value.match(/^[A-Z]*$/)) {
-            mappedString.push({ ...defaultMappedString, value: value, letter: { letter: false, capital: false } })
+            mappedString.push({ ...defaultMappedString, value: value, letter: { letter: true, capital: true } })
         }
         else if (value.match(/^[a-z]*$/)) {
             mappedString.push({ ...defaultMappedString, value: value, letter: { letter: true, capital: false } })
