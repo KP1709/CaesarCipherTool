@@ -47,7 +47,7 @@ function encodedCipher(entry: string, step: number) {
         }
         // Accepting a space + line break
         else if (value.match(/^[ \n]*$/)) {
-            mappedString.push({ ...defaultMappedString, value: value, specialChar: 'space', number: false })
+            mappedString.push({ ...defaultMappedString, value: value, specialChar: 'space' })
         }
     })
 
