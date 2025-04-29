@@ -28,22 +28,26 @@ function encodedCipher(entry: string, step: number) {
 
     userEntrySplit = userEntry.split("")
 
+    const defaultMappedString: MappedStringType = {
+        value: '', letter: { letter: false, capital: false}, specialChar: false, number: false, index: null 
+    }
+
     userEntrySplit.forEach(value => {
         if (value.match(/^[A-Z]*$/)) {
-            mappedString.push({ value: value, letter: { letter: true, capital: true }, specialChar: false, number: false, index: null })
+            mappedString.push({...defaultMappedString, value: value, letter:{ letter: false, capital: false}})
         }
         else if (value.match(/^[a-z]*$/)) {
-            mappedString.push({ value: value, letter: { letter: true, capital: false }, specialChar: false, number: false, index: null })
+            mappedString.push({ ...defaultMappedString, value: value, letter: {letter: true,capital: false }})
         }
         else if (value.match(/^[0-9]*$/)) {
-            mappedString.push({ value: value, letter: { letter: false, capital: false }, specialChar: false, number: true, index: null })
+            mappedString.push({ ...defaultMappedString, value: value, number: true})
         }
         else if (value.match(/^['-+=_`¬\/!@#$%^&*(),.?":{}|<>]*$/)) {
-            mappedString.push({ value: value, letter: { letter: false, capital: false }, specialChar: true, number: false, index: null })
+            mappedString.push({ ...defaultMappedString, value: value, specialChar: true})
         }
         // Accepting a space + line break
         else if (value.match(/^[ \n]*$/)) {
-            mappedString.push({ value: value, letter: { letter: false, capital: false }, specialChar: 'space', number: false, index: null })
+            mappedString.push({ ...defaultMappedString, value: value, specialChar: 'space', number: false})
         }
     })
 
