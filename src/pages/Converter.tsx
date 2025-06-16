@@ -151,7 +151,7 @@ function Converter() {
                         data-test="encrypted-text__display"
 
                     />
-                    <ButtonInput type="submit" value="Encrypt" data-test="encrypt-btn"/>
+                    <ButtonInput type="submit" value="Encrypt" data-test="encrypt-btn" />
                 </form>
             </Item>
 
