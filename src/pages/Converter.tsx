@@ -45,6 +45,7 @@ const ButtonStyles = css`
     border: 2px solid black;
     font-weight: 600;
     letter-spacing: 2px;
+    cusor: pointer;
 
     &:hover {
     background-color: rgb(240,128,128);
