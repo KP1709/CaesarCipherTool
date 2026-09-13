@@ -42,7 +42,7 @@ const encodedCipher = (entry: string, step: number) => {
         else if (value.match(/^[0-9]*$/)) {
             mappedString.push({ ...defaultMappedString, value: value, number: true });
         }
-        else if (value.match(/^['-+=_`¬\/!@#$%^&*(),.?":{}|<>]*$/)) {
+        else if (value.match(/^['\-+=_`¬\/!@#$%^&*(),.?":{}|<>\u2010-\u2015\u2212]*$/)) {
             mappedString.push({ ...defaultMappedString, value: value, specialChar: true });
         }
         // Accepting a space + line break
