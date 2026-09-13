@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { useState } from "react";
-import { useEncodedCipher } from "../hooks/useEncodedCipher";
-import AlphabetShiftDisplay from "../components/alphabetShift"
+import useEncodedCipher from "../hooks/useEncodedCipher";
+import AlphabetShiftDisplay from "../components/alphabetShift";
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import useAlphabetStep from "../hooks/useAlphabetStep";
@@ -99,23 +99,23 @@ const Heading = styled.h3`
 
 const originalAlphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
-function Converter() {
-    const [plainTextInput, setPlainTextInput] = useState('')
-    const [isDrawOpen, setIsDrawOpen] = useState(false)
-    const { step, increment_step, decrement_step } = useAlphabetStep()
-    const { cipherString, setUserEntry, setUserStep, mappedAlphabet, userStep } = useEncodedCipher()
+const Converter = () => {
+    const [plainTextInput, setPlainTextInput] = useState('');
+    const [isDrawOpen, setIsDrawOpen] = useState(false);
+    const { step, increment_step, decrement_step } = useAlphabetStep();
+    const { cipherString, setUserEntry, setUserStep, mappedAlphabet, userStep } = useEncodedCipher();
 
-    const handleSubmit = (e: { preventDefault: () => void }): void => {
-        e.preventDefault()
-        setUserEntry(plainTextInput)
-    }
+    const handleSubmit = (e: { preventDefault: () => void; }): void => {
+        e.preventDefault();
+        setUserEntry(plainTextInput);
+    };
 
-    const handleShiftSubmit = (e: { preventDefault: () => void }): void => {
-        e.preventDefault()
-        setUserStep(step)
-    }
+    const handleShiftSubmit = (e: { preventDefault: () => void; }): void => {
+        e.preventDefault();
+        setUserStep(step);
+    };
 
-    const toggleDraw = () => setIsDrawOpen(!isDrawOpen)
+    const toggleDraw = () => setIsDrawOpen(!isDrawOpen);
 
     return (
         <Container>
@@ -199,7 +199,7 @@ function Converter() {
 
         </Container>
 
-    )
-}
+    );
+};
 
-export default Converter
+export default Converter;

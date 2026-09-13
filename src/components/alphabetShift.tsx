@@ -14,12 +14,12 @@ const GridUnorderedList = styled.ul`
 `;
 
 type AlphabetShiftType = {
-    mappedAlphabet: string[]
-    originalAlphabet: string[]
-    step: number
-}
+    mappedAlphabet: string[];
+    originalAlphabet: string[];
+    step: number;
+};
 
-function AlphabetShiftDisplay({ step, mappedAlphabet, originalAlphabet }: AlphabetShiftType) {
+const AlphabetShiftDisplay = ({ step, mappedAlphabet, originalAlphabet }: AlphabetShiftType) => {
     return (
         <div>
             <GridUnorderedList>
@@ -28,7 +28,7 @@ function AlphabetShiftDisplay({ step, mappedAlphabet, originalAlphabet }: Alphab
                 )}
             </GridUnorderedList>
         </div>
-    )
-}
+    );
+};
 
-export default AlphabetShiftDisplay
+export default AlphabetShiftDisplay;
