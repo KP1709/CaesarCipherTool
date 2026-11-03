@@ -1,0 +1,7 @@
+allowBuilds:
+  cypress: true
+  esbuild: true
+
+overrides:
+  "vite@>=6.0.0 <=6.0.8": ">=6.0.9"
+  "esbuild@<=0.24.2": ">=0.25.0"
