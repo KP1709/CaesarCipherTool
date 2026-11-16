@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 type MappedStringType = {
     value: string;
     letter: {
-        letter: boolean;
+        letterChar: boolean;
         capital: boolean;
         mappedLetter?: string;
     };
@@ -29,42 +29,48 @@ const encodedCipher = (entry: string, step: number) => {
     userEntrySplit = userEntry.split("");
 
     const defaultMappedString: MappedStringType = {
-        value: '', letter: { letter: false, capital: false }, specialChar: false, number: false, index: null
+        value: '', letter: { letterChar: false, capital: false }, specialChar: false, number: false, index: null
     };
 
     userEntrySplit.forEach(value => {
         if (value.match(/^[A-Z]*$/)) {
-            mappedString.push({ ...defaultMappedString, value: value, letter: { letter: true, capital: true } });
+            mappedString.push({ ...defaultMappedString, value: value, letter: { letterChar: true, capital: true } });
+            return;
         }
-        else if (value.match(/^[a-z]*$/)) {
-            mappedString.push({ ...defaultMappedString, value: value, letter: { letter: true, capital: false } });
+        if (value.match(/^[a-z]*$/)) {
+            mappedString.push({ ...defaultMappedString, value: value, letter: { letterChar: true, capital: false } });
+            return;
         }
-        else if (value.match(/^[0-9]*$/)) {
+        if (value.match(/^[0-9]*$/)) {
             mappedString.push({ ...defaultMappedString, value: value, number: true });
+            return;
         }
-        else if (value.match(/^['\-+=_`¬\/!@#$%^&*(),.?":{}|<>\u2010-\u2015\u2212]*$/)) {
+        if (value.match(/^['\-+=_`¬\/!@#$%^&*(),.?":{}|<>\u2010-\u2015\u2212]*$/)) {
             mappedString.push({ ...defaultMappedString, value: value, specialChar: true });
+            return;
         }
         // Accepting a space + line break
-        else if (value.match(/^[ \n]*$/)) {
+        if (value.match(/^[ \n]*$/)) {
             mappedString.push({ ...defaultMappedString, value: value, specialChar: 'space' });
+            return;
         }
     });
 
     mappedString.forEach(item => {
-        if (item.letter.letter) {
-            item.index = alphabet.indexOf(item.letter.capital ? item.value.toLowerCase() : item.value);
-            if (typeof item.index === 'number') {
-                encodedUserEntry.push(item.letter.capital ?
-                    item.letter.mappedLetter = mappedAlphabet[item.index].toUpperCase() :
-                    item.letter.mappedLetter = mappedAlphabet[item.index].toLowerCase());
+        let { letter: { letterChar, capital, mappedLetter }, value, index } = item;
+
+        if (!letterChar) return encodedUserEntry.push(value);
+
+        if (letterChar) {
+            index = alphabet.indexOf(capital ? value.toLowerCase() : value);
+            if (typeof index === 'number') {
+                encodedUserEntry.push(capital ?
+                    mappedLetter = mappedAlphabet[index].toUpperCase() :
+                    mappedLetter = mappedAlphabet[index].toLowerCase());
+                return;
             }
-            else {
-                encodedUserEntry.push(item.value);
-            }
-        }
-        else {
-            encodedUserEntry.push(item.value);
+
+            encodedUserEntry.push(value);
         }
     });
 
