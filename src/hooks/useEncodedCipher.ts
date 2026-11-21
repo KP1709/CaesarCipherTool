@@ -22,11 +22,9 @@ const mapAlphabet = (shift: number): string[] => {
 const encodedCipher = (entry: string, step: number) => {
     const mappedAlphabet = mapAlphabet(step);
     const userEntry = entry;
-    let mappedString: MappedStringType[] = [];
-    let encodedUserEntry: string[] = [];
-    let userEntrySplit: string[] = [];
-
-    userEntrySplit = userEntry.split("");
+    const mappedString: MappedStringType[] = [];
+    const encodedUserEntry: string[] = [];
+    const userEntrySplit = userEntry.split("");
 
     const defaultMappedString: MappedStringType = {
         value: '', letter: { letterChar: false, capital: false }, specialChar: false, number: false, index: null
@@ -45,7 +43,7 @@ const encodedCipher = (entry: string, step: number) => {
             mappedString.push({ ...defaultMappedString, value: value, number: true });
             return;
         }
-        if (value.match(/^['\-+=_`¬\/!@#$%^&*(),.?":{}|<>\u2010-\u2015\u2212]*$/)) {
+        if (value.match(/^['\-+=_`¬/!@#$%^&*(),.?":{}|<>\u2010-\u2015\u2212]*$/)) {
             mappedString.push({ ...defaultMappedString, value: value, specialChar: true });
             return;
         }
@@ -57,7 +55,8 @@ const encodedCipher = (entry: string, step: number) => {
     });
 
     mappedString.forEach(item => {
-        let { letter: { letterChar, capital, mappedLetter }, value, index } = item;
+        const { letter: { letterChar, capital }, value } = item;
+        let index: number | null = item.index;
 
         if (!letterChar) return encodedUserEntry.push(value);
 
@@ -65,8 +64,8 @@ const encodedCipher = (entry: string, step: number) => {
             index = alphabet.indexOf(capital ? value.toLowerCase() : value);
             if (typeof index === 'number') {
                 encodedUserEntry.push(capital ?
-                    mappedLetter = mappedAlphabet[index].toUpperCase() :
-                    mappedLetter = mappedAlphabet[index].toLowerCase());
+                    mappedAlphabet[index].toUpperCase() :
+                    mappedAlphabet[index].toLowerCase());
                 return;
             }
 
