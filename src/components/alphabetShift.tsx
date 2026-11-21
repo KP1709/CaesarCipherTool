@@ -19,16 +19,16 @@ type AlphabetShiftType = {
     step: number;
 };
 
-const AlphabetShiftDisplay = ({ step, mappedAlphabet, originalAlphabet }: AlphabetShiftType) => {
-    return (
-        <div>
-            <GridUnorderedList>
-                {originalAlphabet.map((letter, index) =>
-                    <li key={letter} aria-label={`${letter} is converted to ${mappedAlphabet[index]}`}>{letter} &#8658; {step === 0 ? originalAlphabet[index] : mappedAlphabet[index]}</li>
-                )}
-            </GridUnorderedList>
-        </div>
-    );
-};
+const AlphabetShiftDisplay = ({ step, mappedAlphabet, originalAlphabet }: AlphabetShiftType) => (
+    <div>
+        <GridUnorderedList>
+            {originalAlphabet.map((letter, index) =>
+                <li key={letter} aria-label={`${letter} is converted to ${mappedAlphabet[index]}`}>
+                    {letter} &#8658; {step === 0 ? originalAlphabet[index] : mappedAlphabet[index]}
+                </li>
+            )}
+        </GridUnorderedList>
+    </div>
+);
 
 export default AlphabetShiftDisplay;
